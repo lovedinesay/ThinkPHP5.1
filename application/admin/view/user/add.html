@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="__Layui__/css/layui.css">
+  <script src="__Layui__/layui.js"></script>
+  <head>
+<body style="padding: 10px;">
+  <form class="layui-form">
+
+    <div class="layui-form-item">
+      <label class="layui-form-label">用户名</label>
+      <div class="layui-input-inline">
+        <input type="text" class="layui-input" name="username" value="" >
+      </div>
+    </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">密码</label>
+      <div class="layui-input-inline">
+        <input type="password" class="layui-input" name="userpwd">
+      </div>
+    </div>
+    
+    <div class="layui-form-item">
+      <label class="layui-form-label">真实姓名</label>
+      <div class="layui-input-inline">
+        <input type="text" class="layui-input" name="truename">
+      </div>
+    </div>
+
+   
+    <div class="layui-form-item">
+      <label class="layui-form-label">用户状态</label>
+      <div class="layui-input-inline">
+       
+        
+         <input type="radio" name="statue" lay-skin="primary" value="1" title="启用">
+         <input type="radio" name="statue" lay-skin="primary" value="0" title="禁用">
+
+      </div>
+    </div>
+  </form>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" onclick="save()">保存</button>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    layui.use(['layer','form'],function(){
+      form = layui.form;
+      layer = layui.layer;
+      $ = layui.jquery;
+    });
+
+    // 保存管理员
+    function save(){
+      var username = parseInt($('input[name="username"]').val());
+      var truename = $.trim($('input[name="truename"]').val());
+       var radio = $('input[name="statue"]:checked').val();
+       var userpwd = $('input[name="userpwd"]').val();
+   
+      
+      
+      if(username==''){
+        layer.alert('请输入用户名',{icon:2});
+        return;
+      }
+      if(truename==''){
+        layer.alert('请输入姓名',{icon:2});
+        return;
+      }
+      if(isNaN(radio)){
+        layer.alert('请选择标签状态',{icon:2});
+        return;
+      }
+       if(userpwd==''){
+        layer.alert('请输入密码',{icon:2});
+        return;
+      }
+
+      
+
+      $.post('save',$('form').serialize(),function(res){
+        var res=JSON.parse(res);
+        if(res.code>0){
+          layer.alert(res.msg,{icon:2});
+        }else{
+          layer.alert(res.msg,{icon:1});
+          setTimeout(function(){parent.window.location.reload();},2000);
+        }
+      },'json');
+    }
+
+  </script>
+</body>
+</html>

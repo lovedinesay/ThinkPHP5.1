@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  {include file="mycss" /}
+</head>
+<body>
+  {include file="common" /}
+    <div class="main">
+   <div class="leftcon">
+      <div class="mainvideo">
+      {volist name="res" id="v" key="k"}
+      <div class="videocontent">
+          <input type="hidden" id="vid" value="{$v['vid']}">
+          <input type="hidden" id="videotitle" value="{$v['title']}">
+         <div class="videoimg"><a  id="hr" href="" onclick="jump();"><img href="#" src="{$v['img']}" alt="" ></a></div>
+
+        <div class="videotitle">{$v['catename']}>{$v['title']}</div>
+        </div>
+
+       
+      {/volist}
+      </div>
+    </div>
+   <div class="rightcon"></div>
+
+   </div>
+  </div>
+ 
+  {include file="myjs" /}
+ 
+</body>
+</html>

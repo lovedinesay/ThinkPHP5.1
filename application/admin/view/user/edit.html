@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <link rel="stylesheet" href="__Layui__/css/layui.css">
+  <script src="__Layui__/layui.js"></script>
+  <head>
+<body style="padding: 10px;">
+  <form class="layui-form">
+     {volist name="res" id="v" key="k"}
+     <input type="hidden" value="{$v['uid']}" name="uid">
+    <div class="layui-form-item">
+      <label class="layui-form-label">用户名</label>
+      <div class="layui-input-inline">
+        <input type="text" class="layui-input" name="username" value="{$v['username']}" >
+      </div>
+    </div>
+
+    
+
+    <div class="layui-form-item">
+      <label class="layui-form-label">密&nbsp;&nbsp;&nbsp;&nbsp;码</label>
+      <div class="layui-input-inline">
+        <input type="text" class="layui-input" name="userpwd" value="{$v['userpwd']}">
+      </div>
+    </div>
+
+    <div class="layui-form-item">
+      <label class="layui-form-label">姓&nbsp;&nbsp;&nbsp;&nbsp;名</label>
+      <div class="layui-input-inline">
+        <input type="text" class="layui-input" name="truename" value="{$v['truename']}">
+      </div>
+    </div>
+
+    <div class="layui-form-item">
+      <label class="layui-form-label">状&nbsp;&nbsp;&nbsp;&nbsp;态</label>
+      <div class="layui-input-inline">
+        <input type="checkbox" name="statue" lay-skin="primary" title="启用" value="" {$v['statue']?'checked':''}>
+      </div>
+    </div>
+  </form>
+  {/volist}
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" onclick="update()">保存</button>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    layui.use(['layer','form'],function(){
+      form = layui.form;
+      layer = layui.layer;
+      $ = layui.jquery;
+    });
+
+    // 保存管理员
+    function update(){
+      var id = parseInt($('input[name="uid"]').val());
+      var username = $.trim($('input[name="username"]').val());
+      var pwd = $.trim($('input[name="userpwd"]').val());
+      
+      
+      var truename = $.trim($('input[name="truename"]').val());
+      var statue=$('input[name="statue"]').is(':checked');
+
+
+      if(username==''){
+        layer.alert('请输入用户名',{icon:2});
+        return;
+      }
+      if(isNaN(id) && pwd==''){
+        layer.alert('请输入密码',{icon:2});
+        return;
+      }
+      
+      if(truename==''){
+        layer.alert('请输入姓名',{icon:2});
+        return;
+      }
+
+      if(statue==true)
+      {
+        $('input[name="statue"]').attr('value','1');
+      }
+      else
+      {
+        $('input[name="statue"]').attr('value','0');
+      }
+
+
+      $.post('update',$('form').serialize(),function(res){
+        
+        if(res.code>0){
+          layer.alert(res.msg,{icon:2});
+        }else{
+          layer.alert(res.msg,{icon:1});
+          setTimeout(function(){parent.window.location.reload();},2000);
+        }
+      },'json');
+    }
+
+  </script>
+</body>
+</html>

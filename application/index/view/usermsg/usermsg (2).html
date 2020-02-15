@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+    {include file="mycss" /}
+    <style>
+
+      .main{
+        width: 400px;
+        height: 300px;
+        margin: 200px auto;
+        border: 2px solid pink;
+       
+
+      }
+    </style>
+</head>
+<body>
+  {include file="header" /}
+    <div class="main">
+    
+          
+          <form action="" class="layer-form" onsubmit="return false;">
+       <div class="layui-form-item">
+          <div>个人信息</div>
+ 
+       </div>
+      <div class="layui-form-item">
+          
+        
+        <label class="layui-form-label">id:</label>
+         <div class="layui-input-block">
+        <input type="text" class="layui-input" readonly="readonly" value="{$res['uid']}">
+      
+        </div>
+      </div>
+
+       <div class="layui-form-item">
+        <label class="layui-form-label">姓名:</label>
+        <div class="layui-input-block">
+        <input type="text" class="layui-input" readonly="readonly" value="{$res['truename']}">
+        </div>
+      </div>
+         <div class="layui-form-item">
+        <label class="layui-form-label">用户名:</label>
+        <div class="layui-input-block">
+        <input type="text" class="layui-input"  value="{$res['username']},">
+        </div>
+      </div>
+      <div class="layui-form-item">
+        
+        <label class="layui-form-label">密码:</label>
+         <div class="layui-input-block">
+        <input type="password" class="layui-input" value="{$res['userpwd']}">
+        </div>
+      </div>
+       <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn">修改</button>
+      <button onclick="return1()"  class="layui-btn layui-btn-primary">返回</button></a>
+    </div>
+
+ 
+    
+    </form>
+    
+    </div>
+  
+  
+  
+</body>
+<script src="__Layui__/layui.js"></script>
+<script>
+layui.use(['layer','form'],function()
+{
+    var layer=layui.layer;
+    var form=layui.form;
+    $=layui.$;
+
+});
+  function return1()
+  {
+    window.location.href='http://localhost/animesite/public/index.php/index/index/mainpg.html';
+  }
+
+  
+
+</script>
+</html>

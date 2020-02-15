@@ -1,0 +1,63 @@
+
+    <div class="container">
+      <div class="navi">
+        <div class="site">Sakura动漫网站</div>
+        <div class="search">
+         <div>搜索框:&nbsp;</div>
+          <input type="text" id="search">
+          <a href="" id="searchcon"><i href="" class="layui-icon layui-icon-search" onclick="search();" ></i></a>
+        </div>
+        <div class="rank"><a href="{:url('Index/mainpg')}">首页</a></div>
+        {if $Think.session.name}
+        <div><a href="#" style="font-size: 35px;">{$Think.session.name}</a></div>
+        <div class="logout"><a href="{:url('Login/logout')}">退出登录</a></div>
+        <div class="msg"><a href="{:url('Usermsg/usermsg')}">个人中心</a></div>
+        
+        {else/}
+        <div class="submit"><a href="{:url('Login/regeister')}">注册</a></div>
+        <div class="login"><a href="{:url('Login/login')}">登录</a></div>
+        <div class="msg"><a href="{:url('Usermsg/usermsg')}">个人中心</a></div>
+        {/if}
+
+      </div>
+         <div class="layui-tab tab">
+      
+
+    <ul class="layui-tab-title tab-title">
+    <li >
+    
+    <a href="{:url('Index/mainpg')}">首页</a></li>
+    <li ><a href="{:url('Index/japanpg')}">日本动漫</a></li>
+    <li><a href="{:url('Index/chinapg')}">国产动漫</a></li>
+    <li><a href="{:url('Index/usoupg')}">欧美动漫</a></li>
+    <li><a href="{:url('Index/filmpg')}">动漫电影</a></li>
+    <li><a href="{:url('Index/childpg')}">亲子动漫</a></li>
+    <li><a href="{:url('Index/ovapg')}">剧场版</a></li>
+    <li><a href="{:url('Index/rankpg')}">排行榜</a></li>
+    </ul>
+      </div>
+   
+  <div class="main">
+   <div class="leftcon">
+      <div class="mainvideo">
+      {volist name="res" id="v" key="k"}
+      <div class="videocontent hr">
+          <input type="hidden" id="vid" value="{$v['vid']}">
+          <input type="hidden" id="videotitle" value="{$v['title']}">
+         <div class="videoimg" ><a  vid="{$v['vid']}" title="{$v['title']}" href="" onclick="jump();"><img href="#" src="{$v['img']}" alt="" ></a></div>
+
+        <div class="videotitle">{$v['catename']}>{$v['title']}</div>
+        </div>
+
+       
+      {/volist}
+      </div>
+    </div>
+   <div class="rightcon"></div>
+
+   </div>
+  </div>
+
+
+
+

@@ -1,0 +1,79 @@
+       *{
+          margin:0;
+          padding: 0;
+          font-size: 18px;
+        }
+        .navi
+        {
+       
+          width:auto;
+          height:45px;
+          background-color: #FFF3EE;
+          padding: 15px 0;
+
+        }
+        .layui-icon
+        {
+            float: left;
+          font-size: 35px;
+          margin-left: 18px;
+          margin-top: 6px;
+        }
+        #search{
+          float: left;
+          font-size: 25px;
+          margin-left: 20px;
+          margin-top: 10px;
+        }
+        .navi div,a
+        {
+          float: left;
+          font-size: 30px;
+       
+          margin-left: 30px;
+        }
+        .tab
+        {
+          margin-top: 12px;
+          margin-bottom: 0;
+          border-bottom: 4px solid pink;
+
+        }
+         .tab-title li,a
+       
+        {
+         font-size: 30px; 
+        }
+       
+        .tab-title
+        {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-around;
+        }
+        .main
+        {
+          display: flex;
+          flex-direction: row;
+        }
+        .leftcon
+        {
+          height: 700px;
+          flex: 5;
+         
+      
+        }
+        .rightcon{
+          flex: 1;
+         
+        }
+        .leftcon div
+        {
+          float: left;
+        }
+        .dplayer{
+            width: 900px;
+            height: 500px;
+            margin-left: 18%;
+           
+        }

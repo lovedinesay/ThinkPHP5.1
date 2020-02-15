@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>添加影片</title>
+  <link rel="stylesheet" type="text/css" href="__Layui__/css/layui.css">
+  <script type="text/javascript" src="__Layui__/layui.js"></script>
+</head>
+<body style="padding: 10px;">
+  <form class="layui-form">
+    
+    <div class="layui-form-item">
+      <label class="layui-form-label">动漫名</label>
+      <div class="layui-input-block">
+        <input type="text" class="layui-input" name="title" value="" id="title">
+      </div>
+    </div>
+  
+
+    <div class="layui-form-item">
+      <label class="layui-form-label">&nbsp;</label>
+      <div class="layui-input-block">
+        <button class="layui-btn layui-btn-sm" onclick="return false;" id="upload_img"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+        <img id="pre_img" src="" style="height: 20px;margin-right: 20px;" />
+        <input type="hidden" name="img" value="">
+      </div>
+      </div>
+        <div class="layui-form-item">
+      <label class="layui-form-label">频道</label>
+      <div class="layui-input-inline">
+        <select name="catename" id="catename">
+          <option value="0">请选择</option>
+          {volist name="label" id="v"}
+          <option value="{$v['catename']}">{$v['catename']}</option>
+          {/volist}
+        </select>
+      </div>
+       
+    </div>
+     <div class="layui-form-item">
+      <label class="layui-form-label">描述</label>
+      <div class="layui-input-block">
+        <input type="text" class="layui-input" name="desc" value="" id="desc">
+      </div>
+    </div>
+    <div class="layui-form-item">
+     <div class="layui-input-block">
+        <button class="layui-btn layui-btn-sm" onclick="return false;" id="upload_video"><i class="layui-icon">&#xe67c;</i>上传视频</button>
+  
+        
+      </div>
+      </div>
+    <div class="layui-form-item">
+      <label class="layui-form-label">影片地址</label>
+      <div class="layui-input-block">
+        <input type="text" class="layui-input" name="url" value="" id="video_url"
+        readonly="readonly">
+      </div>
+    </div>
+   
+   
+   
+    <div class="layui-form-item">
+      <label class="layui-form-label">状态</label>
+      <div class="layui-input-inline">
+        <input type="checkbox" layui-skin="primary" name="status" title="发布" >
+      </div>
+    </div>
+
+  </form>
+  <div class="layui-form-item">
+    <div class="layui-input-block">
+      <button class="layui-btn" onclick="save()">保存</button>
+    </div>
+  </div>
+</body>
+</html>
+<script type="text/javascript">
+  layui.use(['form','layer','upload'],function(){
+    $ = layui.jquery;
+    var form = layui.form;
+    var layer = layui.layer;
+
+    var upload = layui.upload;
+   
+     //执行实例
+    var uploadInst = upload.render({
+      elem: '#upload_img' //绑定元素
+      ,url: 'upload_img' //上传接口
+      ,accept:'images'
+      ,done: function(res){
+        //上传完毕回调
+        $('#pre_img').attr('src','../../..'+res.msg);
+        $('input[name="img"]').val('../../..'+res.msg);
+      }
+      ,error: function(){
+        //请求异常回调
+      }
+    });
+      upload.render({
+      elem: '#upload_video' //绑定元素
+      ,url: 'upload_video' //上传接口
+      ,accept:'video'
+      ,done: function(res){
+        //上传完毕回调
+        
+       $('#video_url').val('../../..'+res.msg);
+       layer.msg('上传成功');
+        
+      
+      }
+      ,error: function(){
+        //请求异常回调
+      }
+    });
+  });
+
+  // 保存
+  function save(){
+    var title = $.trim($('input[name="title"]').val());
+    var url = $.trim($('input[name="url"]').val());
+     var desc = $.trim($('input[name="desc"]').val());
+     var catename = $('#catename').find('option:selected').text();
+     
+     
+      
+  
+    if(title == ''){
+      layer.msg('请输入影片名称',{'icon':2,'anim':6});
+      return;
+    }
+    if(url == ''){
+      layer.msg('请上传影片',{'icon':2,'anim':6});
+      return;
+    }
+    if(desc == ''){
+      layer.msg('请输入影片描述',{'icon':2,'anim':6});
+      return;
+    }
+    if(catename=='')
+      {
+      layer.msg('请选择标签状态',{'icon':2,'anim':6});
+      return;
+    }
+
+
+  
+    $.post('save',$('form').serialize(),function(res){
+      if(res.code>0){
+        layer.msg(res.msg,{'icon':2,'anim':2});
+      }else{
+        layer.msg(res.msg,{'icon':1});
+        setTimeout(function(){parent.window.location.reload();},1000);
+      }
+    },'json');
+  }
+</script>

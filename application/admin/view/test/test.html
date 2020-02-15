@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="__Layui__/css/layui.css">
+</head>
+<body>
+  <script src="__Layui__/layui.js"></script>
+<script>
+//一般直接写在一个js文件中
+layui.use(['layer'], function(){
+
+  var layer = layui.layer;
+  
+ 
+  layer.alert('123',{icon:4,btn:['确定','取消'],
+    yes:function(){
+      
+    layer.msg('按钮1',{time:1000});
+
+}
+
+
+  });
+});
+</script> 
+</body>
+</html>

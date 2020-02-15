@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  {include file="mycss" /}
+  <style>
+    .mainvideo
+    {
+      width: 100%;
+      height: 100%;
+      margin:0 auto;
+      border: 2px solid pink;
+    }
+    
+    .videocontent
+    {
+      float: left;
+      height:230px;
+      width: 150px;
+      margin:5px 5px;
+    
+    }
+    .videotitle
+    {
+      float: left;
+    }
+   
+    .videoimg img{
+      width: 150px;
+      height: 200px;
+      position: relative;
+      right: 32px;
+    }
+    .videoimg a{
+      width: 100px;
+     
+    }
+    
+  </style>
+</head>
+<body>
+  {include file="common" /}
+  
+  <div class="main">
+   <div class="leftcon">
+      <div class="mainvideo">
+      {volist name="res" id="v" key="k"}
+      <div class="videocontent">
+          <input type="hidden" id="vid" value="{$v['vid']}">
+          <input type="hidden" id="videotitle" value="{$v['title']}">
+         <div class="videoimg"><a  id="hr" href="" onclick="jump();"><img href="#" src="{$v['img']}" alt="" ></a></div>
+
+        <div class="videotitle">{$v['catename']}>{$v['title']}</div>
+        </div>
+
+       
+      {/volist}
+      </div>
+    </div>
+   <div class="rightcon"></div>
+
+   </div>
+  </div>
+
+  
+</body>
+ <!-- <script src="__Layui__/layui.js"></script> -->
+  {include file="myjs" /}
+  <script>
+  layui.use(['layer','element'],function(){
+    var layer=layui.layer;
+    var element=layui.element;
+    $=layui.$;
+ 
+  });
+  function jump()
+  {
+    var title=$('#videotitle').val();
+    var vid=$('#vid').val();
+    var img=$('#hr');
+    img.attr("href","http://localhost/animesite/public/index.php/index/movie/detail?title="+title+'&&vid='+vid);
+   
+  }
+  function search()
+  {
+    var search=$('#search').val();
+    if(search=='')
+    {
+     layer.alert('搜索内容不能为空',{icon:2});
+     return;
+    
+    }
+    $.ajax({
+      url:'http://localhost/animesite/public/index.php/index/Search/selectmatch',
+      data:{'search':search},
+      type:'post',
+      success:function(res)
+      {
+        if(res.code>0)
+          layer.alert(res.msg,{icon:2});
+      }
+    });
+      
+  }
+  </script>
+</html>

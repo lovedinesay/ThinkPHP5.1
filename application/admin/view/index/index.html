@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="__Layui__/css/layui.css">
+    <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+        .header
+        {
+            height: 40px;
+            background-color:   #6495ED;
+            width: 100%;
+            line-height: 40px;
+            font-size: 25px;
+            position: relative;
+        }
+        #headertxt
+        {
+            margin-left: 25px;
+        }
+        .admin
+        {
+           float: right;
+           position: absolute;
+           right: 100px;
+           top:0px;
+        }
+        .logout
+        {
+          float: right;
+           position: absolute;
+           right: 30px;
+           top:-2px;   
+        }
+
+    </style>
+    
+</head>
+<body>
+<div class="header">
+    <div id="headertxt">后台管理系统</div>
+    <div class="admin">管理员:{$Think.session.uname}</div>
+    <div class="logout"><button class="layui-btn layui-btn-sm" onclick="logout();return false;">登出</button></div>
+    
+</div>
+    <ul class="layui-nav layui-nav-tree" lay-filter="test" style="height: 700px;position: absolute;">
+<!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+  <li class="layui-nav-item ">
+    <a href="javascript:;" onclick="menuFire(this)">后台人员管理</a>
+    <dl class="layui-nav-child">
+      <dd><a href="admin/adminpg" onclick="ajax();return false;">管理员管理</a></dd>
+     
+    </dl>
+    
+  </li>
+  <li class="layui-nav-item">
+    <a href="javascript:;">动漫视频</a>
+    <dl class="layui-nav-child" >
+      <dd><a href="movie/movie" onclick="ajax();return false;">视频管理</a></dd>
+      
+    </dl>
+  </li>
+    <li class="layui-nav-item">
+    <a href="javascript:;">动漫标签</a>
+    <dl class="layui-nav-child">
+      <dd><a href="cate/catepg" onclick="ajax();return false;">分类标签</a></dd>
+     
+    </dl>
+  </li>
+   </li>
+    <li class="layui-nav-item">
+    <a href="javascript:;">动漫评论</a>
+    <dl class="layui-nav-child">
+      <dd><a href="comment/comment" onclick="ajax();return false;">评论管理</a></dd>
+     
+    </dl>
+  </li>
+     <li class="layui-nav-item">
+    <a href="javascript:;">会员管理</a>
+    <dl class="layui-nav-child">
+      <dd><a href="user/user" onclick="ajax();return false;">用户管理</a></dd>
+     
+    </dl>
+  </li>
+
+
+</ul>
+<div class="main" style="position: absolute;left: 200px;">
+        
+</div>
+
+    <script src="__Layui__/layui.js"></script>
+    <script>
+        layui.use(['layer','element','jquery'],function()
+        {
+            var layer=layui.layer;
+            var element=layui.element;
+            $=layui.$;
+            resetMenuHeight();
+            element.on('nav(demo)', function(elem){
+    
+             layer.msg(elem.text());
+            });
+
+        });
+            function logout()
+            {
+                 $.ajax({
+                    url : 'http://localhost/animesite/public/index.php/admin/login/logout',
+                    type : 'post',
+
+                   
+                    success : function(res) {
+                        if(res.code==0)
+                        layer.msg(res.msg);
+                    setTimeout(function()
+                    {
+                    window.location.href='http://localhost/animesite/public/index.php/admin/login/login'
+                     },1000);
+                    },
+                    error : function() {
+                        layer.msg('系统错误');
+                    }
+                });
+            };
+            function menuFire(obj){
+            // 获取url
+            var src = $(obj).attr('src');
+            // 设置iframe的src
+            $('iframe').attr('src',src);
+        };
+            function resetMainHeight(obj){
+            var height = parent.document.documentElement.clientHeight - 53;
+            $(obj).parent('div').height(height);
+        };
+        function resetMenuHeight(){
+            var height = document.documentElement.clientHeight - 50;
+            $('#menu').height(height);
+        }
+        function ajax()
+        {
+            var url=$(event.target).attr('href');
+               $.ajax({
+                    url : 'http://localhost/animesite/public/index.php/admin/'+url,
+                    type : 'post',
+
+                   
+                    success : function(html) {
+                       $(".main").html(html);
+                    },
+                    error : function() {
+                        layer.msg('系统错误');
+                    }
+                });
+          
+
+
+         
+        }
+     
+    </script>
+</body>
+</html>

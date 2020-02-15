@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="__Layui__/css/layui.css">
+  <style>
+    *{
+      margin:0;
+      padding: 0;
+      
+    }
+    body
+    {
+      background-color: skyblue;
+    }
+    .layui-container
+    {
+    }
+    .layer-form
+    {
+      height: 300px;
+      width: 500px;
+      margin:150px auto;
+      background-color: #23785c73;
+      border:1px solid black;
+    }
+    .title
+    {
+      font-size: 25px;
+      margin-left: 20px;
+      font-weight: lighter;
+    }
+    hr{
+
+    }
+    .layui-input
+    {
+      width: 300px;
+    }
+    .btn2
+    {
+      float: right;
+      margin-right: 150px;
+  
+    }
+
+    
+  </style>
+</head>
+<body>
+    <div class="layui-container">
+      <form action="" class="layer-form">
+        <div class="box">
+           <div class="layui-form-item">
+            <div class="title">动漫网站后台</div>
+        </div>
+        </div>
+       
+        <hr>
+        <div class="boxmain">
+
+        <div class="layui-form-item">
+          <label class="layui-form-label">用户名:</label>
+            <div class="layui-input-block">
+             <input type="text" name="username" required  lay-verify="required" placeholder="请输入姓名:" autocomplete="off" class="layui-input" id="uname">
+            </div>
+        </div>
+           <div class="layui-form-item">
+          <label class="layui-form-label">密 码:</label>
+            <div class="layui-input-block">
+             <input type="text" name="pwd" required  lay-verify="required" placeholder="请输入密码:" autocomplete="off" class="layui-input" id="pwd">
+            </div>
+        </div>
+         <div class="layui-form-item ">
+           <div class="layui-input-block ">
+           <button class="layui-btn" lay-submit lay-filter="formDemo" onclick="dologin();return false;">登录</button>
+           <button type="reset" class="layui-btn layui-btn-primary btn2">重置</button>
+        </div>
+       </div>
+       </div>
+      </form>
+       
+
+    </div>
+    </div>
+
+  
+</body>
+  <script src="__Layui__/layui.js"></script>
+  <script>
+    layui.use(['layer','form','jquery'],function()
+    {
+      var layer=layui.layer;
+      var form=layui.form;
+      $=layui.$;
+    });
+    function dologin()
+    {
+ 
+      var username=$('#uname').val();
+      var password=$('#pwd').val();
+
+     
+      if(username=='')
+      {
+        layer.alert('请输入用户名',{icon:2});
+       
+      }
+      if(password=='')
+      {
+        layer.alert('请输入密码',{icon:2});
+        return;
+      }
+    
+      $.post('dologin',{'uname':username,'pwd':password},function(res)
+      { 
+        var data=JSON.parse(res);
+        if(data.code==0)
+          layer.msg('登陆成功');
+          setTimeout(function()
+          {
+            window.location.href='http://localhost/animesite/public/index.php/admin/index/index'
+          },1000);
+
+      },'json')
+ 
+      return ;
+    };
+
+
+  </script>
+</html>

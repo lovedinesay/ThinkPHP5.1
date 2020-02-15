@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <link rel="stylesheet" href="__Layui__/css/layui.css">
+  <script src="__Layui__/layui.js"></script>
+</head>
+<body>
+
+  
+</body>
+<script>
+ layui.use(['layer'],function()
+ {
+    var layer=layui.layer;
+    $=layui.$;
+
+    $.ajax({
+            url : 'http://localhost/animesite/public/index.php/common/common/initialize',
+            type : 'post',
+                   
+            success : function(res) {
+                      res=JSON.parse(res);
+                      layer.alert(res,{icon:2});
+                       setTimeout(function()
+                      {
+                      window.location.href='http://localhost/animesite/public/index.php/admin/login/login'
+                      },1000);
+                    },
+                    error : function() {
+                        layer.msg('系统错误');
+                    }
+                });
+          
+ });
+</script>
+ 
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  {include file="mycss" /}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/dplayer@1.25.0/dist/DPlayer.min.css">
+  <style>
+    .cate{
+      width: 200px;
+      margin-left: 18%;
+      height: 50px;
+      line-height: 50px;
+    }
+    .vouter
+    {
+      width: 100%;
+      height: 100%;
+      background-color: grey;
+      
+    }
+    .videonum
+    {
+      width: 900px;
+      margin-left: 18%;
+    }
+ 
+  </style>
+</head>
+<body>
+  {include file="header" /}
+  
+</body>
+<div class="cate">Sakura>{$msg['catename']}
+<input type="hidden" id="hide" value="{$msg['url']}">
+</div>
+
+<div class="vouter">
+    <div id="dplayer"></div>
+</div>
+
+<div class="videonum">
+  <div class="layui-tab">
+  <ul class="layui-tab-title">
+    <li class="layui-this">播放列表</li>
+    
+  </ul>
+  <div class="layui-tab-content">
+    <div class="layui-tab-item layui-show">
+      <a href="{$msg['url']}" onclick="return false;"><button type="button" class="layui-btn layui-btn-primary">第{$msg['k']}集</button></a> 
+             
+    </div>
+    
+  </div>
+</div>
+</div>
+<script src="__Layui__/layui.js"></script><script src="https://cdn.jsdelivr.net/npm/dplayer@1.25.0/dist/DPlayer.min.js"></script>
+  <script src="__Layui__/layui.js"></script>
+  <script>
+  var url=document.getElementById("hide").value;
+  
+const dp = new DPlayer({
+  
+    container: document.getElementById('dplayer'),
+    video: {
+        
+        url:url,
+    },
+});
+    
+ 
+  </script>
+</html>

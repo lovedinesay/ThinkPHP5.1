@@ -1,0 +1,44 @@
+<script src="https://cdn.jsdelivr.net/npm/dplayer@1.25.0/dist/DPlayer.min.js"></script>
+<script src="__Layui__/layui.js"></script>
+<script>
+    layui.use(['layer','element'],function(){
+    var layer=layui.layer;
+    var element=layui.element;
+    $=layui.$;
+ 
+  });
+  function jump()
+  {
+   
+
+　　$('.hr a').each(function(){
+  var that=this;
+       let title=$(that).attr("title");
+       let vid=$(that).attr("vid");
+       let href=$(that).attr("href");
+       
+       
+      
+      $(that).attr("href","http://localhost/animesite/public/index.php/index/movie/detail?title="+title+'&&vid='+vid);
+     
+　　});
+
+ 
+   
+  }
+  function search()
+  {
+    var search=$('#search').val();
+    if(search=='')
+    {
+     layer.alert('搜索内容不能为空',{icon:2});
+     return;
+    
+    }
+
+    $('#searchcon').attr("href","http://localhost/animesite/public/index.php/index/Search/selectmatch?search="+search);
+   
+      
+  }
+  
+</script>
